@@ -1,0 +1,14 @@
+#!/bin/bash
+
+curdir=`pwd`
+while ((1)); do
+	if [ -e killme ]; then
+		echo EXIT
+		break;
+	fi
+    HELD=`condor_q $USER | grep ' H ' | awk '{print $1}'`
+    if [ -n "$HELD" ]; then
+        condor_release yuzhang1
+    fi
+	sleep 600
+done
