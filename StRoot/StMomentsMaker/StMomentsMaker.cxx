@@ -278,6 +278,8 @@ Int_t StMomentsMaker::Make() {
 	  if(ratio <= 0.52)  continue;
 	  if(dca >= 1)       continue;
 
+    if(fabs(YP)>0.5) continue;
+
     //PID
     if(picoTrack->nSigmaProton()>2.0) continue;
     if(p>3.0) continue;
