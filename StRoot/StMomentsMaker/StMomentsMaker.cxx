@@ -224,6 +224,7 @@ Int_t StMomentsMaker::Make() {
 	  double  pz  = pmomentum.Z();
 	  double  px   = pmomentum.X();
 	  double  py   = pmomentum.Y();
+    double pt = sqrt(px*px + py*py);
 	  double  eta = pmomentum.PseudoRapidity();
     float phi = pmomentum.Phi();
 
@@ -279,11 +280,14 @@ Int_t StMomentsMaker::Make() {
 	  if(dca >= 1)       continue;
 
     if(fabs(YP)>0.5) continue;
-
-    //PID
+    //PID cut
     if(picoTrack->nSigmaProton()>2.0) continue;
-    if(p>3.0) continue;
-    if(msquare<0.6 || msquare>1.2) continue;
+    if(pt<=0.4 || pt >=2.0) continue;
+    if(pt<0.8 && p>1 ) continue;
+    if(pt>=0.8){
+      if(p>3) continue;
+      if(msquare<0.6 || msquare>1.2) continue;
+    }
 
     //event.nHitsFit[SelectedTracks] = nhitsFit;
     //event.nHitsdEdx[SelectedTracks] = nhitsdEdx;
